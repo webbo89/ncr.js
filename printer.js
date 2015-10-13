@@ -80,10 +80,10 @@ printer.run = function(){
     }, 100);
 };
 
-printer.read_hubot = function() {
+printer.read_hubot = function(endpoint) {
     setInterval(function(){
     var request = require('request');
-    request('http://localhost:8080/hubot/print/latest', function (error, response, body) {
+    request(endpoint + 'hubot/print/latest', function (error, response, body) {
         if (!error && response.statusCode == 200) {
 
             print_documents = JSON.parse(body);

@@ -8,20 +8,15 @@ var app = require('../app');
 var debug = require('debug')('receipt_printer:server');
 var http = require('http');
 var printer = require('../printer.js');
+var config = require('../config.json');
 
 printer.start();
 counter = 1;
-printer.addMessage('HELLO YOOOO' + counter++);
-printer.addMessage('HELLO YOOOO' + counter++);
-printer.addMessage('HELLO YOOOO' + counter++);
-printer.addMessage('HELLO YOOOO' + counter++);
-printer.addMessage('HELLO YOOOO' + counter++);
-printer.addMessage('HELLO YOOOO' + counter++);
-printer.addMessage('HELLO YOOOO' + counter++);
-printer.addMessage('HELLO YOOOO' + counter++);
+printer.addMessage('HELLO  ' + counter++);
+printer.addMessage('GOOD MORNING ' + counter++);
 
 printer.run();
-printer.read_hubot();
+printer.read_hubot(config.hubotEndpoint);
 
 
 /**
