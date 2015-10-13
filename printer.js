@@ -79,8 +79,8 @@ printer.run = function(){
         if (printer.spool.length > 0) {
 
             child = exec("echo '" + printer.spool.shift() + "' > /dev/ttyUSB0", function (error, stdout, stderr) {
-                sys.print('stdout: ' + stdout);
-                sys.print('stderr: ' + stderr);
+                //sys.print('stdout: ' + stdout);
+                //sys.print('stderr: ' + stderr);
                 if (error !== null) {
                     console.log('exec error: ' + error);
                 }
