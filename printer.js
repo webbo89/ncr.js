@@ -7,7 +7,7 @@ printer.counter = 0;
 printer.spool = [];
 
 printer.settings = {
-    paper: 'narrow',
+    paper: 'wide',
     paper_narrow: 23,
     paper_wide: 43
 };
@@ -20,8 +20,8 @@ printer.write = function() {
 
 printer.addMessage = function(message_with_lines){
 
-    printer.addLine(this.lineOfChar("/"));
-    printer.addLine(this.lineOfChar("\\"));
+    printer.addLine(this.lineOfChar("#"));
+    printer.addLine(this.lineOfChar("*"));
 
     var messages = message_with_lines.split("\n");
     for (var i = 0, len = messages.length; i < len; i++) {
@@ -34,8 +34,9 @@ printer.addMessage = function(message_with_lines){
         }
     }
 
-    printer.addLine(this.lineOfChar("/"));
-    printer.addLine(this.lineOfChar("\\"));
+    printer.addLine(this.lineOfChar("#"));
+    printer.addLine(this.lineOfChar("*"));
+    printer.addLine(this.lineOfChar(" "));
 
 };
 
