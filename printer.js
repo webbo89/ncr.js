@@ -1,4 +1,6 @@
 var printer = {};
+var exec = require('child_process').exec;
+var sys = require('sys')
 
 printer.counter = 0;
 
@@ -75,7 +77,14 @@ printer.page_width = function() {
 printer.run = function(){
     setInterval(function(){
         if (printer.spool.length > 0) {
-            console.log(printer.spool.shift());
+
+            child = exec("echo '" + printer.spool.shift() + "' > /dev/ttyUSB0", function (error, stdout, stderr) {
+                sys.print('stdout: ' + stdout);
+                sys.print('stderr: ' + stderr);
+                if (error !== null) {
+                    console.log('exec error: ' + error);
+                }
+            });
         }
     }, 100);
 };
