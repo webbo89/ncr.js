@@ -21,6 +21,7 @@ printer.addMessage('HELLO YOOOO' + counter++);
 printer.addMessage('HELLO YOOOO' + counter++);
 
 printer.run();
+printer.read_hubot();
 
 
 /**

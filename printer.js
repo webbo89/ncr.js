@@ -16,16 +16,24 @@ printer.write = function() {
     console.log(this.counter);
 };
 
-printer.addMessage = function(message){
+printer.addMessage = function(message_with_lines){
 
-    printer.addLine(this.prettyLine());
+    printer.addLine(this.lineOfChar("/"));
+    printer.addLine(this.lineOfChar("\\"));
 
-    while (message.length > 0) {
-        printer.addLine(message.substr(0, this.page_width()-1));
-        message = message.substr(this.page_width()-1);
+    var messages = message_with_lines.split("\n");
+    for (var i = 0, len = messages.length; i < len; i++) {
+        var message = messages[i];
+        if (message != undefined) {
+            while (message.length > 0) {
+                printer.addLine(message.substr(0, this.page_width()-1));
+                message = message.substr(this.page_width()-1);
+            }
+        }
     }
 
-    printer.addLine(this.prettyLine());
+    printer.addLine(this.lineOfChar("/"));
+    printer.addLine(this.lineOfChar("\\"));
 
 };
 
@@ -47,6 +55,15 @@ printer.prettyLine = function(){
 
 };
 
+printer.lineOfChar = function(char){
+    var line = "";
+
+    for( var i=0; i < printer.page_width(); i++ ) {
+        line += char;
+    }
+    return line;
+};
+
 printer.page_width = function() {
     if (this.settings.paper == 'narrow') {
         return this.settings.paper_narrow;
@@ -62,5 +79,21 @@ printer.run = function(){
         }
     }, 100);
 };
+
+printer.read_hubot = function() {
+    setInterval(function(){
+    var request = require('request');
+    request('http://localhost:8080/hubot/print/latest', function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+
+            print_documents = JSON.parse(body);
+            for (var i = 0, len = print_documents.length; i < len; i++) {
+                printer.addMessage(print_documents.pop());
+            }
+        }
+    })
+    }, 1000);
+
+}
 
 module.exports = printer;
